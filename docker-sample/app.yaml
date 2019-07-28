@@ -1,0 +1,3 @@
+service: docker-sample
+runtime: custom
+env: flex
