@@ -1,0 +1,9 @@
+spring:
+    contrib:
+        gae:
+            security:
+                remember-me:
+                    key: 'EXJ_xXP+8oA/~/0(Lv?OAU0a~!.QvZ27lZrz2gm2~J,JI*e.As&amp;2`fw76/jdW&lt;ox'
+
+app:
+    host: http://localhost:3000

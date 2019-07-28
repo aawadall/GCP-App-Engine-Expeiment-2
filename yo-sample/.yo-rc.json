@@ -1,0 +1,11 @@
+{
+  "generator-spring-gae-react": {
+    "promptValues": {
+      "project": "yo-sample",
+      "projectName": "Yo Sample",
+      "gitPath": "",
+      "adminEmail": "",
+      "emailFromAddress": "yo-sample@email.org"
+    }
+  }
+}

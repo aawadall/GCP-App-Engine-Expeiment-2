@@ -1,0 +1,14 @@
+logging:
+    pattern:
+        console: '%-40.40logger{39} %n%-5p %m%n'
+
+app:
+    host: https://${app.id}.appspot.com
+
+spring:
+    contrib:
+        gae:
+            security:
+                remember-me:
+                    key: 'y6O~!FRyB(D/E^92eTKC|TI+o?xjRvHBZsEWwunE-a2h%6DwFXm*86voA45|iE^T'
+

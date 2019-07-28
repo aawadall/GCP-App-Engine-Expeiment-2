@@ -1,20 +1,27 @@
 <!DOCTYPE html>
 <html>
-<head><title>Guestbook</title></head>
+
+<head>
+    <title>Guestbook</title>
+</head>
+
 <body>
-<div>
-{% for entry in guestbook_entries %}
-<div>
-{% if entry.author %}
-{{ entry.author.email }}
-{% if user and user.user_id() == entry.author.identity %}
-(You)
-{% endif %}
-Wrote - {% else %}
-An anonymous person wrote - {% endif %}
-{{ entry.content }}
-</div>
-{% endfor %}
-</div>
+    <div>Some Content to mark start of code </div>
+    <div>
+        {% for entry in guestbook_entries %}
+        <div>
+            {% if entry.author %}
+            {{ entry.author.email }}
+            {% if user and user.user_id() == entry.author.identity %}
+            (You)
+            {% endif %}
+            Wrote - {% else %}
+            An anonymous person wrote - {% endif %}
+            {{ entry.content }}
+        </div>
+        {% endfor %}
+    </div>
+    <div>Some content to mark end of code</div>
 </body>
+
 </html>
