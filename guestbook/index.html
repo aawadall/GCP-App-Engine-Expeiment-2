@@ -9,9 +9,9 @@
 {{ entry.author.email }}
 {% if user and user.user_id() == entry.author.identity %}
 (You)
-{% end if %}
+{% endif %}
 Wrote - {% else %}
-An anonymous person wrote - {% end if %}
+An anonymous person wrote - {% endif %}
 {{ entry.content }}
 </div>
 {% endfor %}
