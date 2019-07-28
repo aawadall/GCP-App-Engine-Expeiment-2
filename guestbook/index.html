@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head><title>Guestbook</title></head>
+<body>
+<div>
+{% for entry in guestbook_entries %}
+<div>
+{% if entry.author %}
+{{ entry.author.email }}
+{% if user and user.user_id() == entry.author.identity %}
+(You)
+{% end if %}
+Wrote - {% else %}
+An anonymous person wrote - {% end if %}
+{{ entry.content }}
+</div>
+{% endfor %}
+</div>
+</body>
+</html>

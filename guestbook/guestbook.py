@@ -17,3 +17,63 @@ DEFAULT_GUESBOOK_NAME = 'mock-app'
 
 def guestbook_key(guestbook_name=DEFAULT_GUESBOOK_NAME):
     return ndb.Key('Guestbook', guestbook_name)
+
+
+class Author(ndb.Model):
+    identity = ndb.StringProperty(indexed=False)
+    email=ndb.StringProperty(indexed=False)
+
+class Guestbook_entries(ndb.Model):
+    author = ndb.StructuredProperty(Author)
+    content = ndb.StringProperty(indexed=False)
+    date = ndb.DateTimeProperty(auto_now_add=True)
+
+class MainPage(webapp2.RequestHandler):
+    def get(self):
+        guestbook_name = self.request.get('guestbook_name', 
+                                        DEFAULT_GUESBOOK_NAME)
+        guestbook_entries_query = Guestbook_entries.query(
+            ancestor=guestbook_key(guestbook_name)).order(-Guestbook_entries.date)
+        guestbook_entries = guestbook_entries_query.fetch(10)
+
+        user = users.get_current_user()
+        if user:
+            url = users.create_Logout_url(self.request.uri)
+            url_linktext = 'Logout'
+        else:
+            url = users.create_Login_url(self.request.uri)
+            url_linktext = 'Login'
+        template_values = {
+            'user': user,
+            'guestbook_entries' : guestbook_entries,
+            'guestbook_name' : urllib.quote_plus(guestbook_name),
+            'url': url,
+            'url_linktext': url_linktext,
+        }
+
+        template = JINJA_ENVIRONMENT.get_template('index.html')
+        self.response.write(template.render(template_values))
+
+class Guestbook(webapp2.RequestHandler):
+    def post(self):
+        guestbook_name = self.request.get('guestbook_name',
+                                        DEFAULT_GUESBOOK_NAME)
+        guestbook_entries = Guestbook_entries(parent=guestbook_key(guestbook_name))
+
+        if users.get_current_users():
+            guestbook_entries.author = Author(
+                identity=users.get_current_user().user_id(),
+                email=users.get_current_user().email())
+        
+        guestbook_entries.content = self.request.get('content')
+        guestbook_entries.put()
+
+        query_params = {'guestbook_name': guestbook_name}
+
+        self.redirect('/?' + urllib.urlencode(query_params))
+
+
+app = webapp2.WSGIApplication([
+    ('/', MainPage),
+    ('/sign', Guestbook),
+], debug = True)
