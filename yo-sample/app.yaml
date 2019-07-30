@@ -1,3 +1,0 @@
-service: yo-sample
-runtime: nodejs
-env: flex

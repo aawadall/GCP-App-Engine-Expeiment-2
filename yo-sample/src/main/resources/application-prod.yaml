@@ -1,7 +1,0 @@
-spring:
-    contrib:
-        gae:
-            security:
-                remember-me:
-                    key: 'yX?++n4Nobuuq!el^rI/by)q7W&lt;Za;cpmwLh?4gWj68}]&amp;1RJf$YA8&lt;afJps.SX-'
-
